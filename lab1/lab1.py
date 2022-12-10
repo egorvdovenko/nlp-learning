@@ -69,11 +69,8 @@ def getWordsFreqDict():
   
   return words_freq_dict
 
-
 chars_set = getCharsSet()
 words_set = getWordsSet()
-
-not_alpha_chars_list = [c for c in chars_set if not c.isalpha()]
 
 os.system('clear')
 print('**********')
@@ -86,8 +83,7 @@ print(*[
   '6. Написать программу – корректор правописания.'
 ], sep = '\n')
 
-user_choice = ''
-while user_choice != 'exit':
+while True:
   print('**********')
   user_choice = input('Выбор 1-6: ')
   print('**********')
