@@ -2,6 +2,8 @@ import os
 
 alphabet = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
 books_list = ['CrimeAndPunishment.txt', 'EugeneOnegin.txt', 'FathersAndSons.txt', 'MasterAndMargarita.txt', 'WarAndPeace.txt']
+russian_words_set = set(open('RussianWords.txt', encoding='cp1251').read().split())
+fixed_words_set = set()
 
 def writeDictToFile(path, dict): 
   file = open(path, 'w', encoding='utf-8')
@@ -69,10 +71,61 @@ def getWordsFreqDict():
   
   return words_freq_dict
 
+def tryInsert(word):
+  word_list = list(word)
+
+  for c in alphabet:
+    for i in range(len(word_list) + 1):
+      word_list.insert(i, c)
+      fixed_word = ''.join(word_list)
+
+      if fixed_word in russian_words_set:
+        fixed_words_set.add(fixed_word)
+
+      word_list.pop(i)
+
+def tryDelete(word):
+  word_list = list(word)
+
+  for i in range(len(word_list)):
+    deleted_char = word_list.pop(i)
+    fixed_word = ''.join(word_list)
+
+    if fixed_word in russian_words_set:
+      fixed_words_set.add(fixed_word)
+
+    word_list.insert(i, deleted_char)
+
+def trySwap(word):
+  word_list = list(word)
+    
+  for i in range(len(word) - 1):
+    word_list[i], word_list[i + 1] = word_list[i + 1], word_list[i]
+    fixed_word = ''.join(word_list)
+
+    if fixed_word in russian_words_set:
+        fixed_words_set.add(fixed_word)
+
+    word_list[i], word_list[i + 1] = word_list[i + 1], word_list[i]
+
+def tryReplace(word):
+  word_list = list(word)
+
+  for c in alphabet:
+    for i in range(len(word_list)):
+      word_list[i], replaced_char = c, word_list[i]
+      fixed_word = ''.join(word_list)
+
+      if fixed_word in russian_words_set:
+        fixed_words_set.add(fixed_word)
+
+      word_list[i] = replaced_char
+
 chars_set = getCharsSet()
 words_set = getWordsSet()
 
 os.system('clear')
+
 print('**********')
 print(*[
   '1. Сформировать словарь символов по всем текстам.',
@@ -101,6 +154,16 @@ while True:
   elif user_choice == '5':
     words_freq_dict = getWordsFreqDict()
     writeDictToFile('words_freq_dict.txt', sorted(words_freq_dict.items(), key = lambda x: x[1], reverse = True))
+  elif user_choice == '6':
+    word = input('Введите слово для проверки: ')
+
+    tryInsert(word)
+    tryDelete(word)
+    trySwap(word)
+    tryReplace(word)
+
+    print('Возможные варианты исправления:', fixed_words_set)
+    fixed_words_set.clear()
   else:
     print('???')
   
