@@ -41,7 +41,7 @@ tokens.append(t.tokenize(text))
 
 # 6. Пакет nltk:
 
-nltkTokens = [nltk.word_tokenize(t) for t in nltk.sent_tokenize(text)]
+nltk_tokens = [nltk.word_tokenize(t) for t in nltk.sent_tokenize(text)]
 
 # Вывод значений в таблицу:
 
@@ -49,7 +49,7 @@ for ti, t in enumerate(tokens):
     for wi, w in enumerate(t):
         worksheet.write(wi, ti, w)
 
-for nt in nltkTokens:
+for nt in nltk_tokens:
     for wi, w in enumerate(nt):
         worksheet.write(wi, len(tokens), w)
 
