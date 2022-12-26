@@ -1,7 +1,14 @@
 import os
 
 alphabet = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
-books_list = ['CrimeAndPunishment.txt', 'EugeneOnegin.txt', 'FathersAndSons.txt', 'MasterAndMargarita.txt', 'WarAndPeace.txt']
+books_list = [
+  'stories/CrimeAndPunishment.txt', 
+  'stories/EugeneOnegin.txt', 
+  'stories/FathersAndSons.txt', 
+  'stories/MasterAndMargarita.txt', 
+  'stories/WarAndPeace.txt'
+]
+
 russian_words_set = set(open('RussianWords.txt', encoding='cp1251').read().split())
 fixed_words_set = set()
 
