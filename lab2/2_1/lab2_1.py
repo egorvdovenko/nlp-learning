@@ -2,16 +2,9 @@ import re
 import nltk
 import rutokenizer
 import xlsxwriter
+
 from razdel import tokenize, sentenize
 from mosestokenizer import *
-
-nltk.download("punkt")
-
-t = rutokenizer.Tokenizer()
-t.load()
-
-workbook = xlsxwriter.Workbook("results.xlsx")
-worksheet = workbook.add_worksheet()
 
 text = open("text.txt",  encoding="utf-8").read()
 tokens = []
@@ -31,6 +24,9 @@ tokens.append([w.text for sent in list(sentenize(text)) for w in list(tokenize(s
 
 # 4. Токенизатор rutokenizer:
 
+t = rutokenizer.Tokenizer()
+t.load()
+
 tokens.append(t.tokenize(text))
 
 # 5. Библиотека mosestokenizer:
@@ -41,9 +37,14 @@ tokens.append(t.tokenize(text))
 
 # 6. Пакет nltk:
 
+nltk.download("punkt")
+
 nltk_tokens = [nltk.word_tokenize(t) for t in nltk.sent_tokenize(text)]
 
 # Вывод значений в таблицу:
+
+workbook = xlsxwriter.Workbook("results.xlsx")
+worksheet = workbook.add_worksheet()
 
 for ti, t in enumerate(tokens):
     for wi, w in enumerate(t):
