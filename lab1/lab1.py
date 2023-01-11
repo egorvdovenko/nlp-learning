@@ -9,7 +9,7 @@ books_list = [
   'stories/WarAndPeace.txt'
 ]
 
-russian_words_set = set(open('RussianWords.txt', encoding='cp1251').read().split())
+russian_words_set = set(open('russian_dict.txt', encoding='cp1251').read().split())
 fixed_words_set = set()
 
 def writeDictToFile(path, dict): 
